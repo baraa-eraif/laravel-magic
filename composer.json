@@ -1,0 +1,16 @@
+{
+    "name": "nawa/backend",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Nawa\\Backend\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "baraa-eraif",
+            "email": "baraa1baraa1baraa@gmail.com"
+        }
+    ],
+    "require": {}
+}
