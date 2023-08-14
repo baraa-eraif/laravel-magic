@@ -1,12 +1,12 @@
 <?php
 
-namespace Nawa\Backend\Traits;
+namespace LaravelMagic\Backend\Traits;
 
 use Illuminate\Support\Str;
-use Nawa\Backend\Enum\BasicEnum;
-use Nawa\Backend\Exceptions\BaseException;
-use Nawa\Backend\Repositories\BaseRepository;
-use Nawa\Backend\Http\Resources\BaseResource;
+use LaravelMagic\Backend\Enum\BasicEnum;
+use LaravelMagic\Backend\Exceptions\BaseException;
+use LaravelMagic\Backend\Repositories\BaseRepository;
+use LaravelMagic\Backend\Http\Resources\BaseResource;
 
 trait Base
 {

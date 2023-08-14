@@ -1,6 +1,6 @@
 <?php
 
-namespace Nawa\Backend\Enum;
+namespace LaravelMagic\Backend\Enum;
 
 
 enum BasicEnum

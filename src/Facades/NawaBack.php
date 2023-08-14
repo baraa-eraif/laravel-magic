@@ -1,6 +1,6 @@
 <?php
 
-namespace Nawa\Backend\Facades;
+namespace LaravelMagic\Backend\Facades;
 
 use Illuminate\Support\Facades\Facade;
 

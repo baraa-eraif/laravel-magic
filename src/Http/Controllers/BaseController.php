@@ -1,14 +1,14 @@
 <?php
 
-namespace Nawa\Backend\Http\Controllers;
+namespace LaravelMagic\Backend\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Nawa\Backend\Contracts\BaseInterface;
-use Nawa\Backend\Contracts\HookInterface;
-use Nawa\Backend\Enum\BasicEnum;
-use Nawa\Backend\Traits\Base;
-use Nawa\Backend\Traits\BaseControllerProperty;
+use LaravelMagic\Backend\Contracts\BaseInterface;
+use LaravelMagic\Backend\Contracts\HookInterface;
+use LaravelMagic\Backend\Enum\BasicEnum;
+use LaravelMagic\Backend\Traits\Base;
+use LaravelMagic\Backend\Traits\BaseControllerProperty;
 
 class BaseController extends Controller implements BaseInterface, HookInterface
 {

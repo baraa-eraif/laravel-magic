@@ -1,6 +1,6 @@
 <?php
 
-namespace Nawa\Backend\Traits;
+namespace LaravelMagic\Backend\Traits;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;

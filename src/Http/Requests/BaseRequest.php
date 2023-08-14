@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Nawa\Backend\Http\Requests;
+namespace LaravelMagic\Backend\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 

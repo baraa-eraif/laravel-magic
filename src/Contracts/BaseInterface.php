@@ -1,6 +1,6 @@
 <?php
 
-namespace Nawa\Backend\Contracts;
+namespace LaravelMagic\Backend\Contracts;
 
 
 use Illuminate\Http\Request;

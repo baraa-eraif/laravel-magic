@@ -1,6 +1,6 @@
 <?php
 
-namespace Nawa\Backend\Traits;
+namespace LaravelMagic\Backend\Traits;
 
 trait HasSheet
 {

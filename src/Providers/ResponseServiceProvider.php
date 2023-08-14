@@ -1,6 +1,6 @@
 <?php
 
-namespace Nawa\Backend\Providers;
+namespace LaravelMagic\Backend\Providers;
 
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Response;

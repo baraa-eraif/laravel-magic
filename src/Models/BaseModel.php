@@ -1,11 +1,11 @@
 <?php
 
-namespace Nawa\Backend\Models;
+namespace LaravelMagic\Backend\Models;
 
 
 use \Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use \Nawa\Backend\Traits\HasFilters;
+use \LaravelMagic\Backend\Traits\HasFilters;
 
 class BaseModel extends Model
 {

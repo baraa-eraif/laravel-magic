@@ -1,6 +1,6 @@
 <?php
 
-namespace Nawa\Backend\Exceptions;
+namespace LaravelMagic\Backend\Exceptions;
 
 use Exception;
 

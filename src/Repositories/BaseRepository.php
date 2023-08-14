@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Nawa\Backend\Repositories;
+namespace LaravelMagic\Backend\Repositories;
 
 
 use App\Models\Test;
@@ -11,10 +11,10 @@ use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Nawa\Backend\Contracts\HookInterface;
-use Nawa\Backend\Exceptions\BaseException;
-use Nawa\Backend\Http\Resources\BaseResource;
-use Nawa\Backend\Traits\HasFilters;
+use LaravelMagic\Backend\Contracts\HookInterface;
+use LaravelMagic\Backend\Exceptions\BaseException;
+use LaravelMagic\Backend\Http\Resources\BaseResource;
+use LaravelMagic\Backend\Traits\HasFilters;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 
 class BaseRepository implements HookInterface

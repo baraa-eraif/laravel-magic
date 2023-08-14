@@ -1,6 +1,6 @@
 <?php
 
-namespace Nawa\Backend\Providers;
+namespace LaravelMagic\Backend\Providers;
 
 use Carbon\Laravel\ServiceProvider;
 
