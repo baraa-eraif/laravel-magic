@@ -1,15 +1,15 @@
 {
-    "name": "nawa/backend",
+    "name": "laravel-magic/backend",
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Nawa\\Backend\\": "src/"
+            "LaravelMagic\\Backend\\": "src/"
         }
     },
     "authors": [
         {
             "name": "baraa-eraif",
-            "email": "baraa1baraa1baraa@gmail.com"
+            "email": "baraaeraif@gmail.com"
         }
     ],
     "require": {}
