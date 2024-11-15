@@ -3,7 +3,7 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "LaravelMagic\\Backend\\": "src/"
+            "LaravelMagic\\": "src/"
         }
     },
     "authors": [
