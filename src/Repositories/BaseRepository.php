@@ -1,7 +1,7 @@
 <?php
 
 
-namespace LaravelMagic\Backend\Repositories;
+namespace LaravelMagic\Repositories;
 
 
 use App\Models\Test;
@@ -11,10 +11,10 @@ use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use LaravelMagic\Backend\Contracts\HookInterface;
-use LaravelMagic\Backend\Exceptions\BaseException;
-use LaravelMagic\Backend\Http\Resources\BaseResource;
-use LaravelMagic\Backend\Traits\HasFilters;
+use LaravelMagic\Contracts\HookInterface;
+use LaravelMagic\Exceptions\BaseException;
+use LaravelMagic\Http\Resources\BaseResource;
+use LaravelMagic\Traits\HasFilters;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 
 class BaseRepository implements HookInterface

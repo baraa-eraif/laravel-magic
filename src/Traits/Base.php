@@ -1,136 +1,136 @@
 <?php
 
-namespace LaravelMagic\Backend\Traits;
+namespace LaravelMagic\Traits;
 
 use Illuminate\Support\Str;
-use LaravelMagic\Backend\Enum\BasicEnum;
-use LaravelMagic\Backend\Exceptions\BaseException;
-use LaravelMagic\Backend\Repositories\BaseRepository;
-use LaravelMagic\Backend\Http\Resources\BaseResource;
+use LaravelMagic\Enum\BasicEnum;
+use LaravelMagic\Exceptions\BaseException;
+use LaravelMagic\Repositories\BaseRepository;
+use LaravelMagic\Http\Resources\BaseResource;
 
 trait Base
 {
-    /**
-     * @var string
-     * @author Baraa
-     */
     protected $modelClass;
-    /**
-     * @var string
-     * @author Baraa
-     */
     protected $resourceClass;
-    /**
-     * @var string
-     * @author Baraa
-     */
-    protected $requestClass;
-    /**
-     * @var string
-     * @author Baraa
-     */
-    protected $middlewareClass;
-    /**
-     * @var string
-     * @author Baraa
-     */
     protected $repositoryClass;
-    /**
-     * @var string
-     * @author Baraa
-     */
     protected $repositoryInstance;
 
+
+    public function __construct()
+    {
+        $this->__init();
+    }
+
     /**
-     * @var string
-     * @author Baraa
+     * Initializes the trait by setting class dependencies and repository.
      */
     private function __init()
     {
         $this->refliction = new \ReflectionClass($this);
 
-        if (!$this->modelClass)
-            $this->modelClass = $this->defindModel();
+        // Define model if not set
+        if (!$this->modelClass) {
+            $this->modelClass = $this->defineModel();
+        }
 
-        foreach ($this->refliction->getProperties() as $property)
-            if (str_contains($property->name, BasicEnum::BASE_PROPARTY_IDENTIFIER))
-                if (!$this->{$property->name})
-                    $this->defindClass($property);
+        // Define any other required classes if not set
+        foreach ($this->refliction->getProperties() as $property) {
+            if (str_contains($property->name, BasicEnum::BASE_PROPERTY_IDENTIFIER) && !$this->{$property->name}) {
+                $this->defineClass($property);
+            }
+        }
 
+        // Initialize repository
         $this->repositoryInstance = app()->make($this->repositoryClass);
         $this->repositoryInstance->setModel($this->modelClass);
         $this->repositoryInstance->setResource($this->resourceClass);
     }
 
+    /**
+     * Magic method to handle dynamic getter and setter methods.
+     */
     public function __call($method, $arguments)
     {
         $property = lcfirst(substr($method, 3));
+
         if (strncasecmp($method, 'get', 3) === 0) {
-            if (property_exists($this, $property . 'Class'))
-                return new $this->{$property . 'Class'};
-            return $this->$property ?? null;
-        } elseif (strncasecmp($method, 'set', 3) === 0) {
-            if (count($arguments) !== 1)
+            // Return the class instance or property value
+            return property_exists($this, $property . 'Class')
+                ? new $this->{$property . 'Class'}
+                : $this->$property ?? null;
+        }
+
+        if (strncasecmp($method, 'set', 3) === 0) {
+            if (count($arguments) !== 1) {
                 throw new \InvalidArgumentException("{$method}() expects exactly 1 argument.");
+            }
             $this->$property = $arguments[0];
-        } else
+        } else {
             throw new \BadMethodCallException("Method {$method} does not exist.");
-        dd($property, $method, $arguments);
+        }
     }
 
     /**
-     * @return string
-     * @throws BASEException
-     * @author Baraa
+     * Defines the model class based on the controller name.
+     *
+     * @throws BaseException
      */
-    private function defindModel()
+    private function defineModel()
     {
-        $class_path = BasicEnum::MODEL_BASE_PATH . Str::headline(Str::remove('Controller', $this->getBaseClassPath()));
-        if (!class_exists($class_path))
-            throw new BaseException('Model not support');
-        return $class_path;
+        $classPath = BasicEnum::MODEL_BASE_PATH . Str::headline(Str::remove('Controller', $this->getBaseClassPath()));
+
+        if (!class_exists($classPath)) {
+            throw new BaseException('Model not supported.');
+        }
+
+        return $classPath;
     }
 
     /**
-     * @param $reflictionTarget
-     * @return void
-     * @author Baraa
+     * Defines the class based on reflection target.
      */
-    private function defindClass($reflictionTarget)
+    private function defineClass($reflectionTarget)
     {
-        $targetClass = $this->classNameSpace($reflictionTarget->name);
-        $this->{$reflictionTarget->name} = class_exists($targetClass) ? $targetClass : $this->defaultClass($reflictionTarget);
+        $targetClass = $this->getClassNamespace($reflectionTarget->name);
+        $this->{$reflectionTarget->name} = class_exists($targetClass)
+            ? $targetClass
+            : $this->getDefaultClass($reflectionTarget);
     }
 
     /**
-     * @param $reflictionTarget
-     * @return mixed
-     * @author Baraa
+     * Returns the default class if the class is not found.
      */
-    private function defaultClass($reflictionTarget)
+    private function getDefaultClass($reflectionTarget)
     {
-        $base = Str::upper($this->handleTargetClassName($reflictionTarget->name));
-        return BasicEnum::callProporty("DEFAULT_{$base}_PATH");
+        $base = Str::upper($this->handleClassName($reflectionTarget->name));
+        return BasicEnum::callProperty("DEFAULT_{$base}_PATH");
     }
 
     /**
-     * @return string
-     * @author Baraa
+     * Gets the base class path (controller name).
      */
     private function getBaseClassPath()
     {
         return basename(get_class($this));
     }
 
-
-    private function classNameSpace($directory)
+    /**
+     * Generates the class namespace based on the directory name.
+     */
+    private function getClassNamespace($directory)
     {
-        $class = ucfirst($this->handleTargetClassName($directory));
-        $namespace = str_replace(["Controllers", "Controller"], [Str::plural($class), $class], get_class($this));
-        return str_contains($namespace, '\Repositories') ? Str::remove('\Http', $namespace) : $namespace;
+        $className = ucfirst($this->handleClassName($directory));
+        $namespace = str_replace(["Controllers", "Controller"], [Str::plural($className), $className], get_class($this));
+
+        return str_contains($namespace, '\Repositories')
+            ? Str::remove('\Http', $namespace)
+            : $namespace;
     }
 
-    private function handleTargetClassName($directory)
+    /**
+     * Removes "Class" from the class name.
+     */
+    private function handleClassName($directory)
     {
         return Str::remove('Class', $directory);
     }

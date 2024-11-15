@@ -1,11 +1,11 @@
 <?php
 
-namespace LaravelMagic\Backend\Models;
+namespace LaravelMagic\Models;
 
 
 use \Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use \LaravelMagic\Backend\Traits\HasFilters;
+use \LaravelMagic\Traits\HasFilters;
 
 class BaseModel extends Model
 {

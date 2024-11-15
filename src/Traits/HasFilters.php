@@ -1,6 +1,6 @@
 <?php
 
-namespace LaravelMagic\Backend\Traits;
+namespace LaravelMagic\Traits;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
@@ -8,8 +8,8 @@ use Illuminate\Http\Request;
 trait HasFilters
 {
 
-    
-    
+
+
     public function scopeSearch(Builder $query, Request $request)
     {
        return $query;

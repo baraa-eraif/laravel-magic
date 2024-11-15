@@ -1,6 +1,6 @@
 <?php
 
-namespace LaravelMagic\Backend\Exceptions;
+namespace LaravelMagic\Exceptions;
 
 use Exception;
 
@@ -11,7 +11,7 @@ class BaseException extends Exception
     /**
      * Create a new CustomException instance.
      *
-     * @param  string  $errorMessage
+     * @param string $errorMessage
      * @return void
      */
     public function __construct($errorMessage)
@@ -23,16 +23,16 @@ class BaseException extends Exception
     /**
      * Render the exception into an HTTP response.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function render($request)
     {
         // Custom logic for rendering the exception
         // You can return a custom error view or JSON response
-
-        if ($request->expectsJson()) {
-            return response()->json(['error' => $this->errorMessage], 500);
+dd( $this->errorMessage);
+        if ($request->is('api/*')) {
+            return response()->api(ERROR_STATUS, $this->errorMessage);
         }
 
         return response()->view('errors.custom', ['message' => $this->errorMessage], 500);

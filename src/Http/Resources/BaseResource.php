@@ -1,7 +1,7 @@
 <?php
 
 
-namespace LaravelMagic\Backend\Http\Resources;
+namespace LaravelMagic\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;

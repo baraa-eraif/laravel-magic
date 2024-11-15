@@ -1,6 +1,6 @@
 <?php
 
-namespace LaravelMagic\Backend\Enum;
+namespace LaravelMagic\Enum;
 
 enum ConstantEnum
 {

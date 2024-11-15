@@ -1,7 +1,7 @@
 <?php
 
 
-namespace LaravelMagic\Backend\Http\Requests;
+namespace LaravelMagic\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 

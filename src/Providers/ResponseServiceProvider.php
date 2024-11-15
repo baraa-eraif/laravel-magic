@@ -1,6 +1,6 @@
 <?php
 
-namespace LaravelMagic\Backend\Providers;
+namespace LaravelMagic\Providers;
 
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Response;
@@ -16,18 +16,30 @@ class ResponseServiceProvider extends ServiceProvider
     public function register()
     {
         Response::macro('api', function ($status, $message, $data = [], $extra = [], $error_code = 0, $statusCode = 200) {
+            // Prepare base payload
+            $payload = [
+                'status'    => $status,
+                'message'   => $message,
+                'error_code'=> $error_code,
+            ];
 
+            // Handle paginated data
             if ($data instanceof LengthAwarePaginator) {
-                $data = $this->pagination($data);
-                $payload = array_merge(['status' => $status, 'message' => $message, 'error_code' => $error_code], $data);
+                $data = pagination($data);
+                // Merge paginated data with the base payload
+                $payload = array_merge($payload, $data);
             } else {
-                $payload = ['status' => $status, 'message' => $message, 'error_code' => $error_code, 'data' => $data];
+                // Add non-paginated data to the payload
+                $payload['data'] = $data;
             }
-            if (isset($extra))
-                $payload = array_merge($payload, ['extra' => $extra]);
 
-            return Response::make($payload, $statusCode,
-                ['Content-Type' => 'application/json']);
+            // Include extra data if provided
+            if ($extra) {
+                $payload['extra'] = $extra;
+            }
+
+            // Return the response with the proper JSON header
+            return Response::make($payload, $statusCode, ['Content-Type' => 'application/json']);
         });
     }
 
@@ -38,23 +50,8 @@ class ResponseServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-
-
+        // No implementation needed for boot
     }
 
-    public function pagination(LengthAwarePaginator $lengthAwarePaginator)
-    {
-
-        $data = $paginator->getCollection();
-
-        $result = [
-            'data' => $data,
-            'paginator' => $paginator->toArray(),
-        ];
-
-        unset($result['paginator']['data']);
-
-        return $result;
-    }
 
 }

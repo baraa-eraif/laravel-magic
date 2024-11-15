@@ -1,6 +1,6 @@
 <?php
 
-namespace LaravelMagic\Backend\Contracts;
+namespace LaravelMagic\Contracts;
 
 
 use Illuminate\Database\Eloquent\Model;
